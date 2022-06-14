@@ -11,10 +11,11 @@ const get_data = (data) => {
 }
 export const pre_get_data = () => {
         return (dispatch) => {
-                axios.get('tototototktototot')
+                axios.get('http://127.0.0.1:8000/api/products')
                 .then(res => {
-                        dispatch(get_data(res.data.totoer))
+                        dispatch(get_data(res.data.products))
                 })
+                .catch(err => console.log(err))
         }
 }
 
@@ -27,11 +28,12 @@ const login =(data) => {
                 payload:data
         }
 }
-export const pre_login = () => {
+export const pre_login = (login) => {
         return(dispatch) => {
-                axios.get('lsdkfjlfjjjjdf/login')
+                axios.get('http://127.0.0.1:8000/api/login/',login)
                 .then(res => {
                         dispatch(login(res.data))
+                        localStorage.setItem('login',JSON.stringify(res.data))
                 })
                 .catch(err => console.log(err))
         }

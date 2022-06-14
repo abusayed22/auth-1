@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import { pre_login } from "../../../redux/action/action";
 import "./Login.css";
-
+import { useDispatch } from "react-redux/es/exports";
 function Login() {
-  const [login,setLogin] = useState()
+  const [login,setLogin] = useState({
+    email:'',
+    password:''
+  })
+  const dispatch = useDispatch();
 
   const loginprocess =() =>{
-
+    dispatch(pre_login(login))
   }
 
   return (
@@ -18,6 +23,8 @@ function Login() {
               className="form-control"
               placeholder="E-mail address"
               aria-label="Username"
+              value={login.email}
+              onChange={(e) => setLogin({...login,email:e.target.value})}
             />
           </div>
           <div className="input-group mb-3">
@@ -26,6 +33,8 @@ function Login() {
               className="form-control"
               placeholder="password"
               aria-label="Username"
+              value={login.password}
+              onChange={(e) => setLogin({...login,password:e.target.value})}
             />
           </div>
           <button onClick={() => loginprocess()} type="button" className="btn btn-primary">

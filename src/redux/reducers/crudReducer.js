@@ -2,8 +2,8 @@ import * as types from "../type/type";
 
 
 const initialState = {
-        users:[],
-        user:{}
+        products:[],
+        product:{}
 }
 const crudReducer = (state=initialState,action) => {
         switch (action.type) {
