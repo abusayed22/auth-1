@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { pre_login } from "../../../redux/action/action";
 import "./Login.css";
+import { useSelector } from "react-redux/es/exports";
 import { useDispatch } from "react-redux/es/exports";
 function Login() {
   const [login,setLogin] = useState({
     email:'',
     password:''
   })
+  const auth = useSelector(state => state.auth.login);
   const dispatch = useDispatch();
 
   const loginprocess =() =>{
     dispatch(pre_login(login))
+    setLogin({
+      email:'',
+      password:''
+    })
   }
-
+console.log(auth);
   return (
     <div className="main__login">
       <div className="login_box">

@@ -7,7 +7,7 @@ function Header() {
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <h2 className="text-info">CRUD / AUTH</h2>
+            <h2 className="text-info">Prodcuts-action</h2>
           </Link>
           <button
             className="navbar-toggler"
@@ -33,17 +33,17 @@ function Header() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Students Info
+                  Products Info
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
                     <Link className="dropdown-item" to="/read">
-                      All-students
+                      All-products
                     </Link>
                   </li>
                   <li>
                     <Link className="dropdown-item" to="/add">
-                      Add-student 
+                      Add-product 
                     </Link>
                   </li>
                   <li>
