@@ -9,9 +9,14 @@ const get_data = (data) => {
                 payload:data
         }
 }
-export const pre_get_data = () => {
+export const pre_get_data = (token) => {
         return (dispatch) => {
-                axios.get('http://127.0.0.1:8000/api/products')
+
+                axios.interceptors.request.use(config => {
+                        config.headers.Authorization = token ? `Bearer ${token}` : ''
+                        return config
+                    });
+                axios.get('/api/products')
                 .then(res => {
                         dispatch(get_data(res.data.products))
                 })
@@ -28,13 +33,74 @@ const login =(data) => {
                 payload:data
         }
 }
-export const pre_login = (login) => {
+export const pre_login = (user) => {
         return(dispatch) => {
-                axios.get('http://127.0.0.1:8000/api/login/',login)
+                axios.post('/api/login',user)
                 .then(res => {
-                        dispatch(login(res.data))
-                        localStorage.setItem('login',JSON.stringify(res.data))
+                        if(res.data.status === 200){
+                                dispatch(login(res.data))
+                                localStorage.setItem('user',JSON.stringify(res.data))
+                        }
+                        
                 })
                 .catch(err => console.log(err))
+        }
+}
+
+export const set_user = (user) => {
+        return{
+                type: types.SET_USER,
+                payload: user
+        }
+}
+
+
+const logout = () => {
+        return{
+                type: types.LOGOUT
+        }
+}
+
+export const pre_logout = (token) => {
+        return dispatch => {
+                axios.interceptors.request.use(config => {
+                        config.headers.Authorization = token ? `Bearer ${token}` : ''
+                        return config
+                    });
+
+                    axios.post('/api/logout').then(res => {
+                        if(res.data.status === 200){
+                                dispatch(logout())
+                                localStorage.removeItem('uesr')
+                        }
+                    })
+            
+        }
+}
+
+
+const add_product = () => {
+        return {
+                type: types.ADD_DATA
+        }
+}
+
+export const pre_add_product = (token,product) => {
+
+        return dispatch => {
+                axios.interceptors.request.use(config => {
+                        config.headers.Authorization = token ? `Bearer ${token}` : ''
+                        return config
+                    });
+
+                    axios.post('/api/products',product).then(res => {
+                        if(res.data.status === 200){
+                                dispatch(add_product())
+                        }
+                        if(res.data.status === 422){
+                                alert('Some filed is not fill');
+                        }
+                    })
+                    .catch(err => console.log(err))
         }
 }

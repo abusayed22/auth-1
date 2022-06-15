@@ -3,22 +3,34 @@ import { pre_login } from "../../../redux/action/action";
 import "./Login.css";
 import { useSelector } from "react-redux/es/exports";
 import { useDispatch } from "react-redux/es/exports";
+import { useNavigate } from "react-router-dom";
 function Login() {
-  const [login,setLogin] = useState({
+
+  const [user,setUser] = useState({
     email:'',
     password:''
-  })
-  const auth = useSelector(state => state.auth.login);
+  });
+
+  const navigate = useNavigate()
+  const status = useSelector(state => state.auth.status);
+  // const auth = useSelector(state => state.auth.login);
   const dispatch = useDispatch();
+ 
+  useEffect(() => {
+    if(status) {
+      navigate('/')
+    }
+  },[status])
 
   const loginprocess =() =>{
-    dispatch(pre_login(login))
-    setLogin({
-      email:'',
-      password:''
-    })
+    dispatch(pre_login(user))
+    // setUser({
+    //   email:'',
+    //   password:''
+    // })
   }
-console.log(auth);
+
+
   return (
     <div className="main__login">
       <div className="login_box">
@@ -29,8 +41,8 @@ console.log(auth);
               className="form-control"
               placeholder="E-mail address"
               aria-label="Username"
-              value={login.email}
-              onChange={(e) => setLogin({...login,email:e.target.value})}
+              value={user.email}
+              onChange={(e) => setUser({...user,email:e.target.value})}
             />
           </div>
           <div className="input-group mb-3">
@@ -39,8 +51,8 @@ console.log(auth);
               className="form-control"
               placeholder="password"
               aria-label="Username"
-              value={login.password}
-              onChange={(e) => setLogin({...login,password:e.target.value})}
+              value={user.password}
+              onChange={(e) => setUser({...user,password:e.target.value})}
             />
           </div>
           <button onClick={() => loginprocess()} type="button" className="btn btn-primary">

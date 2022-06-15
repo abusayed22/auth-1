@@ -6,9 +6,13 @@ import Header from '../../partials/Header';
 import { Navigate } from 'react-router-dom';
 
 function Private() {
-        const auth = useSelector(state => state.auth.login);
+        const auth = useSelector(state => state.auth.status);
+        
+        
+           return auth ? <> <Header /> <Outlet /> </>: <Login />
 
-  return auth ? <> <Header /> <Outlet /> </>: <Login />
+        
+
 }
 
 export default Private

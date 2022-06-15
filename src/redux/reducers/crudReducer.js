@@ -3,14 +3,20 @@ import * as types from "../type/type";
 
 const initialState = {
         products:[],
-        product:{}
+        product:{},
 }
 const crudReducer = (state=initialState,action) => {
         switch (action.type) {
                 case types.GET_DATA:
                         return{
                                 ...state,
-                                users:action.payload
+                                products:action.payload
+                        }
+                        break;
+
+                case types.ADD_DATA:
+                        return{
+                                ...state
                         }
                         break;
         

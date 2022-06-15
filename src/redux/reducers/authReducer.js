@@ -1,11 +1,10 @@
 import * as types from "../type/type";
 
 const initialState = {
-        login:true,
+        status:false,
         token:'',
         email:'',
-        password:'',
-        name:''
+        name:'',
 }
 
 const authReducer = (state=initialState,action) => {
@@ -13,12 +12,32 @@ const authReducer = (state=initialState,action) => {
                 case types.LOGIN:
                         return {
                                 ...state,
-                                login:true,
-                                token:action.payload,
-                                email:action.payload,
-                                name:action.payload
+                                status:true,
+                                token:action.payload.token,
+                                email:action.payload.email,
+                                name:action.payload.name,
                         }
                         break;
+
+                case types.SET_USER:
+                        return {
+                                ...state,
+                                status:true,
+                                token:action.payload.token,
+                                email:action.payload.email,
+                                name:action.payload.name,
+                        }
+                        break;
+
+                        case types.LOGOUT:
+                                return {
+                                        ...state,
+                                        status:false,
+                                        token:'',
+                                        email:'',
+                                        name:'',
+                                }
+                                break;
         
                 default:
                         return state

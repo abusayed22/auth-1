@@ -1,13 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { pre_logout } from "../../redux/action/action";
+import "./Header.css";
 
 function Header() {
+  const token = useSelector(state => state.auth.token)
+  const dispatch = useDispatch()
+  const processLogout = () => {
+      dispatch(pre_logout(token))
+  }
   return (
-    <div>
+    <div className="main_header">
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <h2 className="text-info">Prodcuts-action</h2>
+            <h2 className="text-info">Prodcuts</h2>
           </Link>
           <button
             className="navbar-toggler"
@@ -52,18 +60,14 @@ function Header() {
                 </ul>
               </li>
               
+              
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <button onClick={processLogout} className="nav-link btn btn-danger text-white">Logout</button>
+              </li>
+            </ul>
+              
           </div>
         </div>
       </nav>
