@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { set_user } from "./redux/action/action";
 import axios from "axios";
+import CategoryProduct from "./components/pages/CategoryProduct";
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/read" element={<Read />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/product/category/:catid" element={<CategoryProduct />} />
         </Route>
       </Routes>
     </div>

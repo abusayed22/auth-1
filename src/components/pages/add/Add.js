@@ -1,10 +1,13 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pre_add_product } from "../../../redux/action/action";
 
 
 function Add() {
   const dispatch = useDispatch()
+  const [categories, setCategories] = useState([])
 
   const [product,setProduct] = useState({
     product_title:'',
@@ -14,6 +17,15 @@ function Add() {
     product_image:''
   })
 
+  const getCategory = () => {
+    axios.get('/api/categories').then(res => {
+      setCategories(res.data.categories);
+      console.log(res.data.categories);
+    })
+  }
+  useEffect(() => {
+    getCategory();
+  },[]);
 
   const [category, setCategory] = useState(['shirt','pant','bag','doll']);
   const token = useSelector(state => state.auth.token);
@@ -78,7 +90,7 @@ function Add() {
             <label>Product Category</label>
               <select className="form-control" onChange={(e) => setProduct({...product, product_category: e.target.value})}>
                   <option value="">Select Category</option>
-                   {category.map(cat => (<option key={cat} value={cat}>{cat}</option>))}
+                   {categories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
                  
               </select>
             </div>
